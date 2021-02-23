@@ -138,9 +138,9 @@ contract PastaCarbonara is BEP20('PastaCarbonara Token', 'PASTACARBONARA') {
         );
 
         address signatory = ecrecover(digest, v, r, s);
-        require(signatory != address(0), "RAMEN::delegateBySig: invalid signature");
-        require(nonce == nonces[signatory]++, "RAMEN::delegateBySig: invalid nonce");
-        require(now <= expiry, "RAMEN::delegateBySig: signature expired");
+        require(signatory != address(0), "PASTA::delegateBySig: invalid signature");
+        require(nonce == nonces[signatory]++, "PASTA::delegateBySig: invalid nonce");
+        require(now <= expiry, "PASTA::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -170,7 +170,7 @@ contract PastaCarbonara is BEP20('PastaCarbonara Token', 'PASTACARBONARA') {
         view
         returns (uint256)
     {
-        require(blockNumber < block.number, "RAMEN::getPriorVotes: not yet determined");
+        require(blockNumber < block.number, "PASTA::getPriorVotes: not yet determined");
 
         uint32 nCheckpoints = numCheckpoints[account];
         if (nCheckpoints == 0) {
@@ -243,7 +243,7 @@ contract PastaCarbonara is BEP20('PastaCarbonara Token', 'PASTACARBONARA') {
     )
         internal
     {
-        uint32 blockNumber = safe32(block.number, "RAMEN::_writeCheckpoint: block number exceeds 32 bits");
+        uint32 blockNumber = safe32(block.number, "PASTA::_writeCheckpoint: block number exceeds 32 bits");
 
         if (nCheckpoints > 0 && checkpoints[delegatee][nCheckpoints - 1].fromBlock == blockNumber) {
             checkpoints[delegatee][nCheckpoints - 1].votes = newVotes;
